@@ -1,0 +1,7 @@
+<h2>数据结构</h2>
+<div *ngFor="let item of data" class="title" (click)="testAction(item.id)">
+  <h4>{{item.title}}</h4>
+  <div>
+    <button *ngFor="let btn of item.action" (click)="testAction(btn.id)">{{btn.name}}</button>
+  </div>
+</div>
