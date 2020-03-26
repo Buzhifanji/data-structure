@@ -3,15 +3,11 @@
  *  好处是我们可以利用这个队列之前用过的空间
  *  在一个普通队列里，一旦一个队列满了，我们就不能插入下一个元素，即使在队列前面仍有空间。(js数组不固定内存，但其它语言未必是)
  */
-import { Injectable } from '@angular/core';
 interface deleteTye {
     value: any,
     isDelete: boolean,
 }
 
-@Injectable({
-    providedIn: 'root'
-})
 // 循环队列
 export class CircularQueue {
     //数组固定长度
@@ -36,7 +32,7 @@ export class CircularQueue {
             if(this.tail === -1) {
                 this.head = 0;
             }
-            if(this.tail === this.len) {
+            if((this.tail + 1) === this.len) {
                 this.tail = 0
             } else {
                 this.tail++
@@ -44,6 +40,7 @@ export class CircularQueue {
             this.circularQueueArr[this.tail] = value
             result = true;
         } 
+        
         return result;
     }
 
@@ -56,11 +53,12 @@ export class CircularQueue {
         if (!this.isEmpty()) {
             const ele = this.circularQueueArr[this.head]
             this.circularQueueArr[this.head] = null;
-            if(this.head === this.len) {
-                
+            if(this.head === this.len) {     // 利用只使用过的内存            
                 this.head = 0;
-            } else {
-                
+            } else if (this.head === this.tail) {      // 队列只剩下最后一个元素
+                this.head = -1;
+                this.tail = -1;
+            } else {               
                 this.head++
             }
             Object.assign(result, {value: ele, isDelete: true})
@@ -97,11 +95,19 @@ export class CircularQueue {
 
     // 查看队列中元素的数量
     size(): number {
-        const cache = Math.abs(this.tail - this.head)
-        let result = this.len
-        if(cache !== this.len) {
-            result = this.len - cache
-        } 
+        let result
+        if (this.isEmpty()) {
+            result = 0
+        } else {
+            const temp = this.tail - this.head;
+            if (temp > 0) {
+                result = temp + 1
+            } else if (temp === 0) {
+                result = 1;
+            } else {
+                result = this.len + temp + 1
+            }
+        }
         return result;
     }
 }

@@ -1,32 +1,30 @@
 import { CircularQueue } from '@data-structure/queue/CircularQueue';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root'})
 
-export class TestCircularQueue {
-    constructor(private circularQueue: CircularQueue) {}
-
+export class TestCircularQueue extends CircularQueue {
+    constructor() {
+        super(10)
+    }
     enQueue() {
         const num = Math.ceil(Math.random() * 100)
-        const result = this.circularQueue.insert(num)
+        const result = this.insert(num)
         if(result) {
             console.log(`入列元素： ${num}`)
-            console.log(this.circularQueue)
         } else {
             console.log('队列已满')
         }
-        console.log(this.circularQueue)
+        console.log(`队列中元素的数量${this.size()}`)
     }
     
     deQueue() {
-        const {value, isDelete} = this.circularQueue.delete();
-        if(value) {
-            console.log(`出列元素： ${isDelete}`)
+        const {value, isDelete} = this.delete();
+        if(isDelete) {
+            console.log(`出列元素： ${value}`)
         } else {
             console.log('队列已清空')
         }
-        console.log(this.circularQueue)
+        console.log(`队列中元素的数量${this.size()}`)
     }
 }

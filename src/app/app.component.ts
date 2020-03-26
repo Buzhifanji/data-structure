@@ -48,11 +48,13 @@ export class AppComponent {
       case 101:   // 队列出列
         this.testQueue.deQueue()
         break;
-      case 100:   // 循环队列入列
+      case 120:   // 循环队列入列
         this.testCircularQueue.enQueue()
+        console.log(this.testCircularQueue)
         break;
-      case 101:   // 循环队列出列
+      case 121:   // 循环队列出列
         this.testCircularQueue.deQueue()
+        console.log(this.testCircularQueue)
         break;
     }
 
