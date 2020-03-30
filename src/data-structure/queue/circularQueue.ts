@@ -46,10 +46,7 @@ export class CircularQueue {
 
     // 删除
     delete(): deleteTye {
-        const result: deleteTye = {
-            value: null,
-            isDelete: false,
-        } 
+        const result: deleteTye = this.getReturnValue();
         if (!this.isEmpty()) {
             const ele = this.circularQueueArr[this.head]
             this.circularQueueArr[this.head] = null;
@@ -77,20 +74,32 @@ export class CircularQueue {
     }
 
     // 返回队列第一项
-    front(): any {
-        return this.circularQueueArr[this.head];
+    front(): deleteTye {
+        const result: deleteTye = this.getReturnValue();
+        if (!this.isEmpty) {
+            const ele = this.circularQueueArr[this.head]
+            Object.assign(result, {value: ele, isDelete: true})
+        }
+        return result;
     }
 
     // 返回队列最后一项
-    last(): any {
-        return this.circularQueueArr[this.tail];
+    last(): deleteTye {
+        const result: deleteTye = this.getReturnValue();
+        if (!this.isEmpty) {
+            const ele = this.circularQueueArr[this.tail]
+            Object.assign(result, {value: ele, isDelete: true})
+        }
+        return result;
     }
 
     // 清空队列
     clear(): void {
         this.head = -1;
         this.tail = -1;
-        this.circularQueueArr.map(e => {return null})
+        for (let i = 0; i < this.len; i++ ) {
+            this.circularQueueArr[i] = null;
+        }
     }
 
     // 查看队列中元素的数量
@@ -109,5 +118,11 @@ export class CircularQueue {
             }
         }
         return result;
+    }
+    private getReturnValue(): deleteTye {
+        return {
+            value: null,
+            isDelete: false,
+        } 
     }
 }

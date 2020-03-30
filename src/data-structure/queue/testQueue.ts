@@ -8,10 +8,9 @@ import { Injectable } from '@angular/core';
 export class TestQueue {
     constructor(private queue: Queue) { }
     
-    enQueue() {
-        const num = Math.ceil(Math.random() * 100)
-        this.queue.insert(num);
-        console.log(`入列元素： ${num}`)
+    enQueue(value) {
+        this.queue.insert(value);
+        console.log(`入列元素： ${value}`)
         console.log(this.queue)
     }
     deQueue() {

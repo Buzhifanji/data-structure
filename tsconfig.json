@@ -19,7 +19,8 @@
       "dom"
     ],
     "paths": {
-      "@data-structure/*": ["src/data-structure/*"]
+      "@data-structure/*": ["src/data-structure/*"],
+      "@app/*": ["src/app/*"]
     }
   },
   "angularCompilerOptions": {

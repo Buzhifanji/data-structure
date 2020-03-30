@@ -7,11 +7,10 @@ export class TestCircularQueue extends CircularQueue {
     constructor() {
         super(10)
     }
-    enQueue() {
-        const num = Math.ceil(Math.random() * 100)
-        const result = this.insert(num)
+    enQueue(value) {
+        const result = this.insert(value)
         if(result) {
-            console.log(`入列元素： ${num}`)
+            console.log(`入列元素： ${value}`)
         } else {
             console.log('队列已满')
         }
@@ -26,5 +25,8 @@ export class TestCircularQueue extends CircularQueue {
             console.log('队列已清空')
         }
         console.log(`队列中元素的数量${this.size()}`)
+    }
+    clearQueue() {
+        this.clear();      
     }
 }
