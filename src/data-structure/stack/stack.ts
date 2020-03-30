@@ -10,7 +10,7 @@ interface deleteTye {
 })
     
 export class Stack {
-    private stackArr: Array<any> = [];
+    protected stackArr: Array<any> = [];
     /**
      * 入栈
      * @return 栈里元素个数 
@@ -46,5 +46,8 @@ export class Stack {
             result = stackArr[stackArr.length - 1]
         }
         return result
+    }
+    size(): number {
+        return this.stackArr.length
     }
 }

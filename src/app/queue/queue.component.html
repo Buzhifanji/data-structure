@@ -1,0 +1,7 @@
+<div *ngFor="let item of data" class="title">
+  <h4>{{item.title}}</h4>
+  <div>
+    <button *ngFor="let btn of item.action" (click)="testAction(btn.id)">{{btn.name}}</button>
+  </div>
+</div>
+

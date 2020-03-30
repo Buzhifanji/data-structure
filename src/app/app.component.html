@@ -1,8 +1,6 @@
 <h2>数据结构</h2>
-<p class="red">提示：打开控制台察看测试数据</p>
-<div *ngFor="let item of data" class="title" (click)="testAction(item.id)">
-  <h4>{{item.title}}</h4>
-  <div>
-    <button *ngFor="let btn of item.action" (click)="testAction(btn.id)">{{btn.name}}</button>
-  </div>
-</div>
+<nav>
+  <a *ngFor="let item of menu" [routerLink]="item.path" routerLinkActive="active">{{item.name}}</a>
+<nav>
+<p class="red">提示：打开控制台查看测试数据</p>
+<router-outlet></router-outlet>
