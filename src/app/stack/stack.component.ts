@@ -4,6 +4,7 @@ import { StackEnum, MinStackEnum } from './stack-enum.enum';
 import { StackTest } from '@data-structure/stack/stackTest';
 import { MinStackTest } from '@data-structure/stack/MinStackTest';
 import { Stack } from '@data-structure/stack/stack';
+import { Queue } from '@data-structure/queue/queue';
 
 @Component({
   selector: 'app-stack',
@@ -15,7 +16,8 @@ export class StackComponent implements OnInit {
   constructor(
     private testStack: StackTest,
     private minStackTest: MinStackTest,
-    private stack: Stack) { }
+    private stack: Stack,
+    private queue: Queue) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +26,8 @@ export class StackComponent implements OnInit {
   bracketsResult: string = '';
   reversePolishNotation: string = ''    // 逆波兰式
   reversePolishNotationResult: number = null
+  temperature: string = ''
+
   data: Array<QueueType> = [
     {
       title: '栈',
@@ -69,6 +73,7 @@ export class StackComponent implements OnInit {
         break;
     }
   }
+  // 有效的括号
   confirmBrackets(): void {
     // 检测输入数据只能是'(){}[]'
     const strArr = ['(', ')', '{', '}', '[', ']']
@@ -101,6 +106,12 @@ export class StackComponent implements OnInit {
     this.bracketsResult = stack.isEmpty() ? 'true' : 'false'
     stack.clear()
   }
+
+  // 每日温度
+  temperatureAction(): void {
+
+  }
+  // 逆波兰表达式求值
   count(): void {
     const arrCache: Array<string> = this.reversePolishNotation.split(',')
     const { stack } = this
