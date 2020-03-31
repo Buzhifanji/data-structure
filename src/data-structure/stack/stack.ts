@@ -50,4 +50,8 @@ export class Stack {
     size(): number {
         return this.stackArr.length
     }
+    clear(): boolean {
+        this.stackArr.length = 0;
+        return this.isEmpty();
+    }
 }

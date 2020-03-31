@@ -4,3 +4,13 @@
         <button *ngFor="let btn of item.action" (click)="testAction(btn.id)">{{btn.name}}</button>
     </div>
 </div>
+<div>
+    <h4>有效的括号</h4>
+    <div>
+        <input type="text" [(ngModel)]="brackets">
+        <button (click)="confirmBrackets()">确认</button>
+        <span>{{bracketsResult}}</span>
+        <p class="red">{{tip}}</p>
+    </div>
+</div>
+

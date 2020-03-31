@@ -3,6 +3,7 @@ import { QueueType } from '@app/queue/queue-type';
 import { StackEnum, MinStackEnum } from './stack-enum.enum';
 import { StackTest } from '@data-structure/stack/stackTest';
 import { MinStackTest } from '@data-structure/stack/MinStackTest';
+import { Stack } from '@data-structure/stack/stack';
 
 @Component({
   selector: 'app-stack',
@@ -11,11 +12,16 @@ import { MinStackTest } from '@data-structure/stack/MinStackTest';
 })
 export class StackComponent implements OnInit {
 
-  constructor(private testStack: StackTest,
-              private minStackTest: MinStackTest) { }
+  constructor(
+    private testStack: StackTest,
+    private minStackTest: MinStackTest,
+    private stack: Stack) { }
 
   ngOnInit(): void {
   }
+  tip: string = '给定一个只包括 (，)，{，}，[，] 的字符串，判断字符串是否有效'
+  brackets: string = ''       // 有效的括号
+  bracketsResult: string = '';
   data: Array<QueueType> = [
     {
       title: '栈',
@@ -60,6 +66,38 @@ export class StackComponent implements OnInit {
         this.minStackTest.getMin()
         break;
     }
-
   }
+  confirmBrackets() {
+    // 检测输入数据只能是'(){}[]'
+    const strArr = ['(', ')', '{', '}', '[', ']']
+    for (const item of this.brackets) {
+      if (!strArr.includes(item)) {
+        alert(`只能输入(){}[]`)
+        return
+      }
+    }
+
+    // 设置映射数据
+    const map = new Map()
+    map.set('(', ')')
+    map.set('{', '}')
+    map.set('[', ']')
+
+    const { stack } = this
+    for (const item of this.brackets) {
+      const top = stack.top()
+      if (top) {
+        if (map.get(top) === item) {
+          stack.pop()
+        } else {
+          stack.push(item)
+        }
+      } else {  
+        stack.push(item)
+      }
+    }
+    this.bracketsResult = stack.isEmpty() ? 'true' : 'false'
+    stack.clear()
+  }
+  
 }
