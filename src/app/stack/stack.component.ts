@@ -22,6 +22,8 @@ export class StackComponent implements OnInit {
   tip: string = '给定一个只包括 (，)，{，}，[，] 的字符串，判断字符串是否有效'
   brackets: string = ''       // 有效的括号
   bracketsResult: string = '';
+  reversePolishNotation: string = ''    // 逆波兰式
+  reversePolishNotationResult: number = null
   data: Array<QueueType> = [
     {
       title: '栈',
@@ -41,7 +43,7 @@ export class StackComponent implements OnInit {
       ],
     },
   ]
-  testAction(id) {
+  testAction(id: number): void {
     const num = Math.ceil(Math.random() * 100)
     switch (id) {
       case StackEnum.in:    // 入栈
@@ -67,7 +69,7 @@ export class StackComponent implements OnInit {
         break;
     }
   }
-  confirmBrackets() {
+  confirmBrackets(): void {
     // 检测输入数据只能是'(){}[]'
     const strArr = ['(', ')', '{', '}', '[', ']']
     for (const item of this.brackets) {
@@ -99,5 +101,25 @@ export class StackComponent implements OnInit {
     this.bracketsResult = stack.isEmpty() ? 'true' : 'false'
     stack.clear()
   }
-  
+  count(): void {
+    const arrCache: Array<string> = this.reversePolishNotation.split(',')
+    const { stack } = this
+    const operate: Array<string> = ['+', '-', '*', '/']
+   
+    let result = null;
+    for (const item of arrCache) {
+      if (operate.includes(item)) {
+        const left = stack.pop().value
+        const right = stack.pop().value
+        const str = `return ${right}${item}${left}`
+        const operateFn = new Function(str)
+        result = parseInt(operateFn())
+        stack.push(result)
+      } else {
+        stack.push(item)
+      }
+    }
+    this.reversePolishNotationResult = result;
+    stack.clear()
+  }
 }
