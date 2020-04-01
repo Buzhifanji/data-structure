@@ -47,6 +47,15 @@ export class Stack {
         }
         return result
     }
+    // 返回栈低元素
+    bottom(): any {
+        let result = null
+        if (!this.isEmpty()) {
+            const { stackArr } = this;
+            result = stackArr[0]
+        }
+        return result
+    }
     size(): number {
         return this.stackArr.length
     }

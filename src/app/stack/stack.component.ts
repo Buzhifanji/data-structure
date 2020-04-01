@@ -27,7 +27,7 @@ export class StackComponent implements OnInit {
   reversePolishNotation: string = ''    // 逆波兰式
   reversePolishNotationResult: number = null
   temperature: string = ''
-
+  temperatureResult: string = ''
   data: Array<QueueType> = [
     {
       title: '栈',
@@ -109,7 +109,35 @@ export class StackComponent implements OnInit {
 
   // 每日温度
   temperatureAction(): void {
-
+    const arrCache: Array<string> = this.temperature.split(',')
+    const { stack } = this
+    const result: Array<number> = []
+    while (arrCache.length > 0) {
+      const len = arrCache.length - 1;
+      for (let i = 0; i < arrCache.length; i++) {
+        const item = +arrCache[i]
+        if (i === len) {
+          result.push(0)
+          arrCache.shift();
+          break;
+        } else {
+          const bottom = stack.bottom()
+          if (bottom) {
+            if (item > bottom) {
+              result.push(stack.size())
+              stack.clear();
+              arrCache.shift();
+              break;
+            } else {
+              stack.push(+item)
+            }
+          } else {
+            stack.push(+item)
+          } 
+        } 
+      }
+    }
+    this.temperatureResult = `[${result.join(', ')}]`
   }
   // 逆波兰表达式求值
   count(): void {
